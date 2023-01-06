@@ -26,6 +26,8 @@ const theme = {
 	"--wasabi-blue-200": "#0B2F59",
 	"--wasabi-black-50": "#CDD4DD",
 	"--wasabi-black-100": "#8796A7",
+	// utils
+	"--wasabi-max-width": "1200px",
 };
 
 export default function App({ Component, pageProps }: AppProps) {
