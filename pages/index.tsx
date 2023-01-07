@@ -19,8 +19,8 @@ export default function Home() {
 					<StyledSearchContainer>
 						<Search />
 					</StyledSearchContainer>
-					<ComparisonTable />
 				</StyledHomeWrapperContainer>
+				<ComparisonTable />
 			</StyledHomeWrapper>
 		</>
 	);

@@ -162,7 +162,7 @@ const StyledSmallNav = styled.nav<StyledSmallNavProp>`
 	position: fixed;
 	inset: 0;
 	background: ${(props) => props.theme["--wasabi-white"]};
-	z-index: 10;
+	z-index: 50;
 	& svg {
 		position: absolute;
 		right: 1rem;

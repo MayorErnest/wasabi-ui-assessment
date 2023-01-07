@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { FeaturesIcon } from "../../assets";
 
 type StyledButtonProp = {
 	isActive?: boolean;
+};
+
+type StyledComparisonHeaderBoxImageConProp = {
+	isBorderLess?: boolean;
 };
 
 export const ComparisonTable = () => {
@@ -28,16 +33,59 @@ export const ComparisonTable = () => {
 					Test NumberTwo
 				</StyledComparisonTableTabButton>
 			</StyledComparisonTableTabs>
+			<StyledComparisonTableMain>
+				<StyledComparisonTableMainHeader>
+					<StyledComparisonTableMainHeaderBox>
+						<StyledComparisonHeaderBoxImageCon isBorderLess>
+							<FeaturesIcon />
+						</StyledComparisonHeaderBoxImageCon>
+						<StyledCheckboxContainer>
+							<StyledCheckbox id="features" />
+							<StyledLabel htmlFor="features">
+								Hide same features
+							</StyledLabel>
+						</StyledCheckboxContainer>
+					</StyledComparisonTableMainHeaderBox>
+					<StyledComparisonTableMainHeaderBox>
+						<StyledComparisonHeaderBoxImageCon>
+							{/* <Image
+								src={""}
+								height={160}
+								alt=""
+								style={{ width: "100%", objectFit:"contain" }}
+							/> */}
+						</StyledComparisonHeaderBoxImageCon>
+						{/* <StyledComparisonHeaderBoxTitle>
+							Lorem ipsum, dolor sit amet consectetur
+						</StyledComparisonHeaderBoxTitle> */}
+					</StyledComparisonTableMainHeaderBox>
+					<StyledComparisonTableMainHeaderBox>
+						<StyledComparisonHeaderBoxImageCon />
+					</StyledComparisonTableMainHeaderBox>
+					<StyledComparisonTableMainHeaderBox>
+						<StyledComparisonHeaderBoxImageCon />
+					</StyledComparisonTableMainHeaderBox>
+					<StyledComparisonTableMainHeaderBox>
+						<StyledComparisonHeaderBoxImageCon />
+					</StyledComparisonTableMainHeaderBox>
+				</StyledComparisonTableMainHeader>
+			</StyledComparisonTableMain>
 		</StyledComparisonTable>
 	);
 };
 
-const StyledComparisonTable = styled.div``;
+const StyledComparisonTable = styled.div`
+	padding: 0rem 4%;
+	@media (min-width: 1280px) {
+		padding: 0rem 0%;
+	}
+`;
 
 const StyledComparisonTableTabs = styled.div`
 	display: flex;
 	max-width: 42rem;
 	margin: 0 auto;
+	margin-bottom: 2rem;
 	overflow-x: scroll;
 	&::-webkit-scrollbar {
 		width: 0rem;
@@ -74,4 +122,81 @@ const StyledComparisonTableTabButton = styled.button<StyledButtonProp>`
 	white-space: nowrap;
 `;
 
-const StyledComparisonTableMain = styled.main``;
+const StyledComparisonTableMain = styled.main`
+	max-width: ${(props) => props.theme["--wasabi-max-width"]};
+	margin: 0 auto;
+`;
+
+const StyledComparisonTableMainHeader = styled.div`
+	display: grid;
+	grid-template-columns: repeat(
+		5,
+		calc(${(props) => props.theme["--wasabi-max-width"]} / 5)
+	);
+	overflow-x: scroll;
+	&::-webkit-scrollbar {
+		width: 0rem;
+	}
+	&::-webkit-scrollbar-track {
+		background: none;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: none;
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		background: none;
+	}
+`;
+
+const StyledComparisonTableMainHeaderBox = styled.div`
+	border: 0.063rem solid ${(props) => props.theme["--wasabi-gray-100"]};
+	padding: 1rem;
+	padding-bottom: 1.5rem;
+`;
+
+const StyledComparisonHeaderBoxImageCon = styled.div<StyledComparisonHeaderBoxImageConProp>`
+	position: relative;
+	width: 100%;
+	height: 10rem;
+	border-radius: 0.25rem;
+	border: 0.125rem dashed
+		${(props) =>
+			props.isBorderLess
+				? "transparent"
+				: props.theme["--wasabi-black-50"]};
+	& > * {
+		position: relative;
+		z-index: 10;
+	}
+	&::after {
+		position: absolute;
+		display: inline-block;
+		font-size: 6rem;
+		font-weight: 100;
+		font-family: "Times New Roman", Times, serif;
+		content: "+";
+		color: ${(props) => props.theme["--wasabi-black-50"]};
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+`;
+
+const StyledComparisonHeaderBoxTitle = styled.p`
+	color: ${(props) => props.theme["--wasabi-blue-200"]};
+	font-size: 1rem;
+	font-weight: 600;
+	margin-top: 0.6rem;
+`;
+
+const StyledCheckboxContainer = styled.div`
+	margin-top: 0.8rem;
+`;
+
+const StyledCheckbox = styled.input.attrs({ type: "checkbox" })``;
+
+const StyledLabel = styled.label`
+	font-size: 0.875rem;
+	color: ${(props) => props.theme["--wasabi-blue-200"]};
+	margin-left: 0.3rem;
+`;
