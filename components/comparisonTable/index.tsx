@@ -75,40 +75,42 @@ export const ComparisonTable = () => {
 					</StyledComparisonTableMainHeaderBox>
 				</StyledComparisonTableMainHeader>
 				<StyledTable>
-					<StyledTableRow>
-						<StyledTableHeader>Defence</StyledTableHeader>
-					</StyledTableRow>
-					<StyledTableRow isOdd>
-						<StyledTableData>Saka</StyledTableData>
-						<StyledTableData>Partey</StyledTableData>
-						<StyledTableData>Martinelli</StyledTableData>
-						<StyledTableData>White</StyledTableData>
-						<StyledTableData>Shaka</StyledTableData>
-					</StyledTableRow>
-					<StyledTableRow isEven>
-						<StyledTableData>Saka</StyledTableData>
-						<StyledTableData>Partey</StyledTableData>
-						<StyledTableData>Martinelli</StyledTableData>
-						<StyledTableData>White</StyledTableData>
-						<StyledTableData>Shaka</StyledTableData>
-					</StyledTableRow>
-					<StyledTableRow>
-						<StyledTableHeader>Attack</StyledTableHeader>
-					</StyledTableRow>
-					<StyledTableRow isOdd>
-						<StyledTableData>Saka</StyledTableData>
-						<StyledTableData>Partey</StyledTableData>
-						<StyledTableData>Martinelli</StyledTableData>
-						<StyledTableData>White</StyledTableData>
-						<StyledTableData>Shaka</StyledTableData>
-					</StyledTableRow>
-					<StyledTableRow isEven>
-						<StyledTableData>Saka</StyledTableData>
-						<StyledTableData>Partey</StyledTableData>
-						<StyledTableData>Martinelli</StyledTableData>
-						<StyledTableData>White</StyledTableData>
-						<StyledTableData>Shaka</StyledTableData>
-					</StyledTableRow>
+					<StyledTableBody>
+						<StyledTableRow>
+							<StyledTableHeader>Defence</StyledTableHeader>
+						</StyledTableRow>
+						<StyledTableRow isOdd>
+							<StyledTableData>Saka</StyledTableData>
+							<StyledTableData>Partey</StyledTableData>
+							<StyledTableData>Martinelli</StyledTableData>
+							<StyledTableData>White</StyledTableData>
+							<StyledTableData>Shaka</StyledTableData>
+						</StyledTableRow>
+						<StyledTableRow isEven>
+							<StyledTableData>Saka</StyledTableData>
+							<StyledTableData>Partey</StyledTableData>
+							<StyledTableData>Martinelli</StyledTableData>
+							<StyledTableData>White</StyledTableData>
+							<StyledTableData>Shaka</StyledTableData>
+						</StyledTableRow>
+						<StyledTableRow>
+							<StyledTableHeader>Attack</StyledTableHeader>
+						</StyledTableRow>
+						<StyledTableRow isOdd>
+							<StyledTableData>Saka</StyledTableData>
+							<StyledTableData>Partey</StyledTableData>
+							<StyledTableData>Martinelli</StyledTableData>
+							<StyledTableData>White</StyledTableData>
+							<StyledTableData>Shaka</StyledTableData>
+						</StyledTableRow>
+						<StyledTableRow isEven>
+							<StyledTableData>Saka</StyledTableData>
+							<StyledTableData>Partey</StyledTableData>
+							<StyledTableData>Martinelli</StyledTableData>
+							<StyledTableData>White</StyledTableData>
+							<StyledTableData>Shaka</StyledTableData>
+						</StyledTableRow>
+					</StyledTableBody>
 				</StyledTable>
 			</StyledComparisonTableMain>
 		</StyledComparisonTable>
@@ -261,6 +263,8 @@ const StyledTable = styled.table`
 		background: none;
 	}
 `;
+
+const StyledTableBody = styled.tbody``;
 
 const StyledTableHeader = styled.th`
 	font-size: 0.75rem;
