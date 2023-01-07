@@ -10,6 +10,11 @@ type StyledComparisonHeaderBoxImageConProp = {
 	isBorderLess?: boolean;
 };
 
+type StyledRowProps = {
+	isOdd?: boolean;
+	isEven?: boolean;
+};
+
 export const ComparisonTable = () => {
 	const [currentTab, setcurrentTab] = useState<string>("Test NumberOne");
 	const handleTableClick = (e: React.SyntheticEvent) => {
@@ -55,9 +60,9 @@ export const ComparisonTable = () => {
 								style={{ width: "100%", objectFit:"contain" }}
 							/> */}
 						</StyledComparisonHeaderBoxImageCon>
-						{/* <StyledComparisonHeaderBoxTitle>
+						<StyledComparisonHeaderBoxTitle>
 							Lorem ipsum, dolor sit amet consectetur
-						</StyledComparisonHeaderBoxTitle> */}
+						</StyledComparisonHeaderBoxTitle>
 					</StyledComparisonTableMainHeaderBox>
 					<StyledComparisonTableMainHeaderBox>
 						<StyledComparisonHeaderBoxImageCon />
@@ -69,6 +74,42 @@ export const ComparisonTable = () => {
 						<StyledComparisonHeaderBoxImageCon />
 					</StyledComparisonTableMainHeaderBox>
 				</StyledComparisonTableMainHeader>
+				<StyledTable>
+					<StyledTableRow>
+						<StyledTableHeader>Defence</StyledTableHeader>
+					</StyledTableRow>
+					<StyledTableRow isOdd>
+						<StyledTableData>Saka</StyledTableData>
+						<StyledTableData>Partey</StyledTableData>
+						<StyledTableData>Martinelli</StyledTableData>
+						<StyledTableData>White</StyledTableData>
+						<StyledTableData>Shaka</StyledTableData>
+					</StyledTableRow>
+					<StyledTableRow isEven>
+						<StyledTableData>Saka</StyledTableData>
+						<StyledTableData>Partey</StyledTableData>
+						<StyledTableData>Martinelli</StyledTableData>
+						<StyledTableData>White</StyledTableData>
+						<StyledTableData>Shaka</StyledTableData>
+					</StyledTableRow>
+					<StyledTableRow>
+						<StyledTableHeader>Attack</StyledTableHeader>
+					</StyledTableRow>
+					<StyledTableRow isOdd>
+						<StyledTableData>Saka</StyledTableData>
+						<StyledTableData>Partey</StyledTableData>
+						<StyledTableData>Martinelli</StyledTableData>
+						<StyledTableData>White</StyledTableData>
+						<StyledTableData>Shaka</StyledTableData>
+					</StyledTableRow>
+					<StyledTableRow isEven>
+						<StyledTableData>Saka</StyledTableData>
+						<StyledTableData>Partey</StyledTableData>
+						<StyledTableData>Martinelli</StyledTableData>
+						<StyledTableData>White</StyledTableData>
+						<StyledTableData>Shaka</StyledTableData>
+					</StyledTableRow>
+				</StyledTable>
 			</StyledComparisonTableMain>
 		</StyledComparisonTable>
 	);
@@ -133,6 +174,7 @@ const StyledComparisonTableMainHeader = styled.div`
 		5,
 		calc(${(props) => props.theme["--wasabi-max-width"]} / 5)
 	);
+	margin-bottom: -1rem;
 	overflow-x: scroll;
 	&::-webkit-scrollbar {
 		width: 0rem;
@@ -199,4 +241,51 @@ const StyledLabel = styled.label`
 	font-size: 0.875rem;
 	color: ${(props) => props.theme["--wasabi-blue-200"]};
 	margin-left: 0.3rem;
+`;
+
+const StyledTable = styled.table`
+	display: inline-block;
+	overflow-x: scroll;
+	background: ${(props) => props.theme["--wasabi-gray-100"]};
+	width: 100%;
+	&::-webkit-scrollbar {
+		width: 0rem;
+	}
+	&::-webkit-scrollbar-track {
+		background: none;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: none;
+	}
+	&::-webkit-scrollbar-thumb:hover {
+		background: none;
+	}
+`;
+
+const StyledTableHeader = styled.th`
+	font-size: 0.75rem;
+	font-weight: 600;
+	color: ${(props) => props.theme["--wasabi-blue-200"]};
+	text-transform: uppercase;
+	padding: 0.6rem 0.8rem;
+`;
+
+const StyledTableRow = styled.tr<StyledRowProps>`
+	background: ${(props) =>
+		props.isEven
+			? props.theme["--wasabi-white"]
+			: props.isOdd
+			? props.theme["--wasabi-gray-50"]
+			: ""};
+	display: inline-block;
+	overflow-x: scroll;
+`;
+
+const StyledTableData = styled.td`
+	background: inherit;
+	font-size: 0.875rem;
+	color: ${(props) => props.theme["--wasabi-blue-200"]};
+	padding: 0.6rem 0.8rem;
+	min-width: calc(${(props) => props.theme["--wasabi-max-width"]} / 5);
+	border-right: 1px solid ${(props) => props.theme["--wasabi-gray-100"]};
 `;
