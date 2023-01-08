@@ -6,6 +6,7 @@ import HamburgerIcon from "./hamburger.svg";
 import CloseIcon from "./close.svg";
 import PlusIcon from "./plus.svg";
 import FeaturesIcon from "./features.svg";
+import TickIcon from "./tick.svg";
 
 export {
 	Logo,
@@ -16,4 +17,5 @@ export {
 	CloseIcon,
 	PlusIcon,
 	FeaturesIcon,
+	TickIcon,
 };

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { schoolsData } from "../assets/data";
 import { ComparisonTable, Header, Search } from "../components";
 
 export default function Home() {
@@ -20,7 +21,7 @@ export default function Home() {
 						<Search />
 					</StyledSearchContainer>
 				</StyledHomeWrapperContainer>
-				<ComparisonTable />
+				<ComparisonTable data={schoolsData} />
 			</StyledHomeWrapper>
 		</>
 	);

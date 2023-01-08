@@ -6,7 +6,7 @@ export const schoolsData = {
 		},
 		school2: {
 			name: "Salem City School, New Jersey",
-			image: `https://img.freepik.com/free-vector/school-building-educational-institution-college_107791-1051.jpg?w=2000`,
+			image: "https://img.freepik.com/free-vector/school-building-educational-institution-college_107791-1051.jpg?w=2000",
 		},
 	},
 	schoolsTableData: {

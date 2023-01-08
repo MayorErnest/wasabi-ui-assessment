@@ -1,6 +1,23 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { FeaturesIcon } from "../../assets";
+import { FeaturesIcon, TickIcon } from "../../assets";
+
+type dataType = {
+	schools: {
+		[key: string]: { [key: string]: string };
+	};
+	schoolsTableData: {
+		[key: string]: {
+			[key: string]: {
+				[key: string]: string | number | boolean;
+			};
+		};
+	};
+};
+
+type ComparsionTableProp = {
+	data: dataType;
+};
 
 type StyledButtonProp = {
 	isActive?: boolean;
@@ -15,8 +32,10 @@ type StyledRowProps = {
 	isEven?: boolean;
 };
 
-export const ComparisonTable = () => {
-	const [currentTab, setcurrentTab] = useState<string>("Test NumberOne");
+export const ComparisonTable = ({ data }: ComparsionTableProp) => {
+	const [currentTab, setcurrentTab] = useState<string>(
+		Object.keys(data.schoolsTableData)[0]
+	);
 	const handleTableClick = (e: React.SyntheticEvent) => {
 		let target = e.target as HTMLInputElement;
 		setcurrentTab(target.innerHTML);
@@ -25,18 +44,15 @@ export const ComparisonTable = () => {
 	return (
 		<StyledComparisonTable>
 			<StyledComparisonTableTabs>
-				<StyledComparisonTableTabButton
-					onClick={handleTableClick}
-					isActive={currentTab === "Test NumberOne"}
-				>
-					Test NumberOne
-				</StyledComparisonTableTabButton>
-				<StyledComparisonTableTabButton
-					onClick={handleTableClick}
-					isActive={currentTab === "Test NumberTwo"}
-				>
-					Test NumberTwo
-				</StyledComparisonTableTabButton>
+				{Object.keys(data.schoolsTableData).map((item, index) => (
+					<StyledComparisonTableTabButton
+						key={index + item}
+						onClick={handleTableClick}
+						isActive={currentTab === item}
+					>
+						{item}
+					</StyledComparisonTableTabButton>
+				))}
 			</StyledComparisonTableTabs>
 			<StyledComparisonTableMain>
 				<StyledComparisonTableMainHeader>
@@ -51,65 +67,105 @@ export const ComparisonTable = () => {
 							</StyledLabel>
 						</StyledCheckboxContainer>
 					</StyledComparisonTableMainHeaderBox>
-					<StyledComparisonTableMainHeaderBox>
-						<StyledComparisonHeaderBoxImageCon>
-							{/* <Image
-								src={""}
-								height={160}
-								alt=""
-								style={{ width: "100%", objectFit:"contain" }}
-							/> */}
-						</StyledComparisonHeaderBoxImageCon>
-						<StyledComparisonHeaderBoxTitle>
-							Lorem ipsum, dolor sit amet consectetur
-						</StyledComparisonHeaderBoxTitle>
-					</StyledComparisonTableMainHeaderBox>
-					<StyledComparisonTableMainHeaderBox>
-						<StyledComparisonHeaderBoxImageCon />
-					</StyledComparisonTableMainHeaderBox>
-					<StyledComparisonTableMainHeaderBox>
-						<StyledComparisonHeaderBoxImageCon />
-					</StyledComparisonTableMainHeaderBox>
-					<StyledComparisonTableMainHeaderBox>
-						<StyledComparisonHeaderBoxImageCon />
-					</StyledComparisonTableMainHeaderBox>
+					{Object.values(data.schools).map((item, index) => (
+						<StyledComparisonTableMainHeaderBox
+							key={index + item.name}
+						>
+							<StyledComparisonHeaderBoxImageCon isBorderLess>
+								<StyledComparisonHeaderBoxImage
+									src={item.image}
+									alt={item.name}
+								/>
+							</StyledComparisonHeaderBoxImageCon>
+							<StyledComparisonHeaderBoxTitle>
+								{item.name}
+							</StyledComparisonHeaderBoxTitle>
+						</StyledComparisonTableMainHeaderBox>
+					))}
+					{Array.from(
+						Array(4 - Object.values(data.schools).length).keys()
+					).map((item) => (
+						<StyledComparisonTableMainHeaderBox key={item}>
+							<StyledComparisonHeaderBoxImageCon />
+						</StyledComparisonTableMainHeaderBox>
+					))}
 				</StyledComparisonTableMainHeader>
 				<StyledTable>
 					<StyledTableBody>
-						<StyledTableRow>
-							<StyledTableHeader>Defence</StyledTableHeader>
-						</StyledTableRow>
-						<StyledTableRow isOdd>
-							<StyledTableData>Saka</StyledTableData>
-							<StyledTableData>Partey</StyledTableData>
-							<StyledTableData>Martinelli</StyledTableData>
-							<StyledTableData>White</StyledTableData>
-							<StyledTableData>Shaka</StyledTableData>
-						</StyledTableRow>
-						<StyledTableRow isEven>
-							<StyledTableData>Saka</StyledTableData>
-							<StyledTableData>Partey</StyledTableData>
-							<StyledTableData>Martinelli</StyledTableData>
-							<StyledTableData>White</StyledTableData>
-							<StyledTableData>Shaka</StyledTableData>
-						</StyledTableRow>
-						<StyledTableRow>
-							<StyledTableHeader>Attack</StyledTableHeader>
-						</StyledTableRow>
-						<StyledTableRow isOdd>
-							<StyledTableData>Saka</StyledTableData>
-							<StyledTableData>Partey</StyledTableData>
-							<StyledTableData>Martinelli</StyledTableData>
-							<StyledTableData>White</StyledTableData>
-							<StyledTableData>Shaka</StyledTableData>
-						</StyledTableRow>
-						<StyledTableRow isEven>
-							<StyledTableData>Saka</StyledTableData>
-							<StyledTableData>Partey</StyledTableData>
-							<StyledTableData>Martinelli</StyledTableData>
-							<StyledTableData>White</StyledTableData>
-							<StyledTableData>Shaka</StyledTableData>
-						</StyledTableRow>
+						{Object.keys(data.schoolsTableData).map(
+							(item, index) => (
+								<React.Fragment key={index + item}>
+									<StyledTableRow>
+										<StyledTableHeader>
+											{item}
+										</StyledTableHeader>
+									</StyledTableRow>
+									{Object.values(
+										data.schoolsTableData[item]
+									).map((itemData, index) => (
+										<StyledTableRow
+											key={index}
+											isOdd={index % 2 !== 0}
+											isEven={index % 2 === 0}
+										>
+											<StyledTableData>
+												{
+													Object.keys(
+														data.schoolsTableData[
+															item
+														]
+													)[index]
+												}
+											</StyledTableData>
+											{Object.values(itemData).map(
+												(item, index) => (
+													<StyledTableData
+														key={index}
+													>
+														{Number(item) &&
+														typeof item !==
+															"boolean" ? (
+															Math.max(
+																...Object.values(
+																	itemData
+																).map((item) =>
+																	Number(item)
+																		? Number(
+																				item
+																		  )
+																		: 0
+																)
+															) ===
+															Number(item) ? (
+																<>
+																	{item}
+																	<TickIcon />
+																</>
+															) : (
+																item
+															)
+														) : (
+															String(item)
+														)}
+													</StyledTableData>
+												)
+											)}
+											{Array.from(
+												Array(
+													4 -
+														Object.values(itemData)
+															.length
+												).keys()
+											).map((item) => (
+												<StyledTableData
+													key={item}
+												></StyledTableData>
+											))}
+										</StyledTableRow>
+									))}
+								</React.Fragment>
+							)
+						)}
 					</StyledTableBody>
 				</StyledTable>
 			</StyledComparisonTableMain>
@@ -131,6 +187,7 @@ const StyledComparisonTableTabs = styled.div`
 	margin-bottom: 2rem;
 	overflow-x: scroll;
 	&::-webkit-scrollbar {
+		display: none;
 		width: 0rem;
 	}
 	&::-webkit-scrollbar-track {
@@ -171,14 +228,20 @@ const StyledComparisonTableMain = styled.main`
 `;
 
 const StyledComparisonTableMainHeader = styled.div`
+	position: sticky;
+	position: -webkit-sticky;
+	top: 0;
+	z-index: 20;
 	display: grid;
+	gap: 0;
+	background: ${(props) => props.theme["--wasabi-gray-50"]};
 	grid-template-columns: repeat(
 		5,
 		calc(${(props) => props.theme["--wasabi-max-width"]} / 5)
 	);
-	margin-bottom: -1rem;
 	overflow-x: scroll;
 	&::-webkit-scrollbar {
+		display: none;
 		width: 0rem;
 	}
 	&::-webkit-scrollbar-track {
@@ -226,6 +289,12 @@ const StyledComparisonHeaderBoxImageCon = styled.div<StyledComparisonHeaderBoxIm
 	}
 `;
 
+const StyledComparisonHeaderBoxImage = styled.img`
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+`;
+
 const StyledComparisonHeaderBoxTitle = styled.p`
 	color: ${(props) => props.theme["--wasabi-blue-200"]};
 	font-size: 1rem;
@@ -251,6 +320,7 @@ const StyledTable = styled.table`
 	background: ${(props) => props.theme["--wasabi-gray-100"]};
 	width: 100%;
 	&::-webkit-scrollbar {
+		display: none;
 		width: 0rem;
 	}
 	&::-webkit-scrollbar-track {
@@ -286,10 +356,19 @@ const StyledTableRow = styled.tr<StyledRowProps>`
 `;
 
 const StyledTableData = styled.td`
+	position: relative;
 	background: inherit;
 	font-size: 0.875rem;
 	color: ${(props) => props.theme["--wasabi-blue-200"]};
 	padding: 0.6rem 0.8rem;
 	min-width: calc(${(props) => props.theme["--wasabi-max-width"]} / 5);
 	border-right: 1px solid ${(props) => props.theme["--wasabi-gray-100"]};
+	&:first-of-type {
+		font-weight: 600;
+		color: ${(props) => props.theme["--wasabi-blue-200"]};
+	}
+	& svg {
+		position: absolute;
+		right: 10px;
+	}
 `;

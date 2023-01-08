@@ -12,7 +12,6 @@ const GlobalStyle = createGlobalStyle`
 html,
 body {
   font-family: 'Quicksand', sans-serif;
-	overflow-x: hidden;
 }
 `;
 
