@@ -275,7 +275,7 @@ const StyledComparisonHeaderBoxImageCon = styled.div<StyledComparisonHeaderBoxIm
 		position: relative;
 		z-index: 10;
 	}
-	&::after {
+	&:last-of-type::after {
 		position: absolute;
 		display: inline-block;
 		font-size: 6rem;
