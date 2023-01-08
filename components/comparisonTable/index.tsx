@@ -36,6 +36,8 @@ export const ComparisonTable = ({ data }: ComparsionTableProp) => {
 	const [currentTab, setcurrentTab] = useState<string>(
 		Object.keys(data.schoolsTableData)[0]
 	);
+	const [hideSameFeatures, setHideSameFeatures] = useState<boolean>(false);
+
 	const handleTableClick = (e: React.SyntheticEvent) => {
 		let target = e.target as HTMLInputElement;
 		setcurrentTab(target.innerHTML);
@@ -61,7 +63,12 @@ export const ComparisonTable = ({ data }: ComparsionTableProp) => {
 							<FeaturesIcon />
 						</StyledComparisonHeaderBoxImageCon>
 						<StyledCheckboxContainer>
-							<StyledCheckbox id="features" />
+							<StyledCheckbox
+								id="features"
+								onChange={() =>
+									setHideSameFeatures(!hideSameFeatures)
+								}
+							/>
 							<StyledLabel htmlFor="features">
 								Hide same features
 							</StyledLabel>
@@ -102,67 +109,81 @@ export const ComparisonTable = ({ data }: ComparsionTableProp) => {
 									</StyledTableRow>
 									{Object.values(
 										data.schoolsTableData[item]
-									).map((itemData, index) => (
-										<StyledTableRow
-											key={index}
-											isOdd={index % 2 !== 0}
-											isEven={index % 2 === 0}
-										>
-											<StyledTableData>
-												{
-													Object.keys(
-														data.schoolsTableData[
-															item
-														]
-													)[index]
-												}
-											</StyledTableData>
-											{Object.values(itemData).map(
-												(item, index) => (
-													<StyledTableData
-														key={index}
-													>
-														{Number(item) &&
-														typeof item !==
-															"boolean" ? (
-															Math.max(
-																...Object.values(
-																	itemData
-																).map((item) =>
-																	Number(item)
-																		? Number(
-																				item
-																		  )
-																		: 0
-																)
-															) ===
-															Number(item) ? (
-																<>
-																	{item}
-																	<TickIcon />
-																</>
-															) : (
+									).map((itemData, index) =>
+										hideSameFeatures &&
+										Object.values(itemData).every(
+											(val, i, arr) => val === arr[0]
+										) ? (
+											""
+										) : (
+											<StyledTableRow
+												key={index}
+												isOdd={index % 2 !== 0}
+												isEven={index % 2 === 0}
+											>
+												<StyledTableData>
+													{
+														Object.keys(
+															data
+																.schoolsTableData[
 																item
-															)
-														) : (
-															String(item)
-														)}
-													</StyledTableData>
-												)
-											)}
-											{Array.from(
-												Array(
-													4 -
-														Object.values(itemData)
-															.length
-												).keys()
-											).map((item) => (
-												<StyledTableData
-													key={item}
-												></StyledTableData>
-											))}
-										</StyledTableRow>
-									))}
+															]
+														)[index]
+													}
+												</StyledTableData>
+												{Object.values(itemData).map(
+													(item, index) => (
+														<StyledTableData
+															key={index}
+														>
+															{Number(item) &&
+															typeof item !==
+																"boolean" ? (
+																Math.max(
+																	...Object.values(
+																		itemData
+																	).map(
+																		(
+																			item
+																		) =>
+																			Number(
+																				item
+																			)
+																				? Number(
+																						item
+																				  )
+																				: 0
+																	)
+																) ===
+																Number(item) ? (
+																	<>
+																		{item}
+																		<TickIcon />
+																	</>
+																) : (
+																	item
+																)
+															) : (
+																String(item)
+															)}
+														</StyledTableData>
+													)
+												)}
+												{Array.from(
+													Array(
+														4 -
+															Object.values(
+																itemData
+															).length
+													).keys()
+												).map((item) => (
+													<StyledTableData
+														key={item}
+													></StyledTableData>
+												))}
+											</StyledTableRow>
+										)
+									)}
 								</React.Fragment>
 							)
 						)}
