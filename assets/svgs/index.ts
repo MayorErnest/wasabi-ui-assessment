@@ -4,7 +4,6 @@ import ArrowDown from "./arrowDown.svg";
 import SearchIcon from "./searchIcon.svg";
 import HamburgerIcon from "./hamburger.svg";
 import CloseIcon from "./close.svg";
-import PlusIcon from "./plus.svg";
 import FeaturesIcon from "./features.svg";
 import TickIcon from "./tick.svg";
 
@@ -15,7 +14,6 @@ export {
 	SearchIcon,
 	HamburgerIcon,
 	CloseIcon,
-	PlusIcon,
 	FeaturesIcon,
 	TickIcon,
 };
