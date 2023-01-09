@@ -1,20 +1,8 @@
-import axios from "axios";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
 import styled from "styled-components";
 import { schoolsData } from "../assets/data";
 import { ComparisonTable, Header, Search } from "../components";
 
 export default function Home() {
-	const { query, push } = useRouter();
-
-	if (query) {
-		axios(`https://isdhidhidhsi?q=${query.token}`)
-			.then((res) => console.log(res))
-			.catch((err) => push("/dummy"));
-		return <></>;
-	}
-
 	return (
 		<>
 			<Header />
