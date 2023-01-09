@@ -1,8 +1,28 @@
+import axios, { AxiosResponse } from "axios";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { schoolsData } from "../assets/data";
 import { ComparisonTable, Header, Search } from "../components";
 
 export default function Home() {
+	const { query, push } = useRouter();
+
+	useEffect(() => {
+		axios
+			.get("https://api.dummyonline.com", {
+				headers: {
+					Authorization: `token ${query.token}`,
+				},
+			})
+			.then((res: AxiosResponse) => {
+				console.log(res.data);
+			})
+			.catch((error: Error) => {
+				push("/dummy");
+			});
+	}, [query.token, push]);
+
 	return (
 		<>
 			<Header />
